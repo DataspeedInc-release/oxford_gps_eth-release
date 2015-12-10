@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <name>oxford_gps_eth</name>
+  <version>0.0.1</version>
+  <description>
+    Ethernet interface to the Oxford GPS (NCOM packet structure)
+  </description>
+
+  <license>BSD</license>
+  <author email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</author>
+  <maintainer email="khallenbeck@dataspeedinc.com">Kevin Hallenbeck</maintainer>
+  <url type="website">http://dataspeedinc.com</url>
+  <url type="repository">https://bitbucket.org/dataspeedinc/oxford_gps_eth</url>
+  <url type="bugtracker">https://bitbucket.org/dataspeedinc/oxford_gps_eth/issues</url>
+
+  <license>Proprietary</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>tf</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>nav_msgs</run_depend>
+  <run_depend>tf</run_depend>
+
+</package>
