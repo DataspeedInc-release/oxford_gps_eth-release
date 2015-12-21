@@ -48,7 +48,11 @@
 
 // Ethernet
 #include <arpa/inet.h>
-#include <stdint.h> // this include is required for ubuntu saucy
+
+// UINT16_MAX is not defined by default in Ubuntu Saucy
+#ifndef UINT16_MAX
+#define UINT16_MAX (65535)
+#endif
 
 static inline bool openSocket(const std::string &interface, const std::string &ip_addr, uint16_t port, int *fd_ptr, sockaddr_in *sock_ptr)
 {
