@@ -1,3 +1,26 @@
+## oxford_gps_eth (kinetic) - 0.0.4-0
+
+The packages in the `oxford_gps_eth` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release oxford_gps_eth --track kinetic --rosdistro kinetic --edit` on `Tue, 12 Apr 2016 02:51:38 -0000`
+
+The `oxford_gps_eth` package was released.
+
+Version of package(s) in repository `oxford_gps_eth`:
+
+- upstream repository: https://bitbucket.org/DataspeedInc/oxford_gps_eth
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `0.0.4-0`
+
+Versions of tools used:
+
+- bloom version: `0.5.21`
+- catkin_pkg version: `0.2.10`
+- rosdep version: `0.11.4`
+- rosdistro version: `0.4.5`
+- vcstools version: `0.1.38`
+
+
 ## oxford_gps_eth (indigo) - 0.0.4-0
 
 The packages in the `oxford_gps_eth` repository were released into the `indigo` distro by running `/usr/bin/bloom-release oxford_gps_eth --track indigo --rosdistro indigo` on `Tue, 12 Apr 2016 02:46:24 -0000`
