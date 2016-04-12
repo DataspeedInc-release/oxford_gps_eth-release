@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package>
   <name>oxford_gps_eth</name>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <description>
-    Ethernet interface to the Oxford GPS (NCOM packet structure)
+    Ethernet interface to OxTS GPS receivers (NCOM packet structure)
   </description>
 
   <license>BSD</license>
