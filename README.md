@@ -1,4 +1,4 @@
-Etherent interface to OXTS GPS receivers using the NCOM packet structure
+Etherent interface to OxTS GPS receivers using the NCOM packet structure
 ===============================
 
 ![](RT3v2.jpg)
