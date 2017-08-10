@@ -1,7 +1,7 @@
 /*********************************************************************
  * Software License Agreement (BSD License)
  *
- *  Copyright (c) 2015-2016, Dataspeed Inc.
+ *  Copyright (c) 2015-2017, Dataspeed Inc.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -32,6 +32,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
+// ROS
 #include <ros/ros.h>
 
 // ROS messages
@@ -265,8 +266,8 @@ static inline void handlePacket(const Packet *packet, ros::Publisher &pub_fix, r
     geometry_msgs::TwistWithCovarianceStamped msg_vel;
     msg_vel.header.stamp = stamp;
     msg_vel.header.frame_id = frame_id_vel;
-    msg_vel.twist.twist.linear.x = (double)packet->vel_north * 1e-4;
-    msg_vel.twist.twist.linear.y = (double)packet->vel_east * -1e-4;
+    msg_vel.twist.twist.linear.x = (double)packet->vel_east * 1e-4;
+    msg_vel.twist.twist.linear.y = (double)packet->vel_north * 1e-4;
     msg_vel.twist.twist.linear.z = (double)packet->vel_down * -1e-4;
     if (velocity_covariance_type > sensor_msgs::NavSatFix::COVARIANCE_TYPE_UNKNOWN) {
       msg_vel.twist.covariance[0] = velocity_covariance[0]; // x
@@ -283,7 +284,6 @@ static inline void handlePacket(const Packet *packet, ros::Publisher &pub_fix, r
     msg_imu.linear_acceleration.x = (double)packet->accel_x * 1e-4;
     msg_imu.linear_acceleration.y = (double)packet->accel_y * 1e-4;
     msg_imu.linear_acceleration.z = (double)packet->accel_z * -1e-4;
-    msg_imu.linear_acceleration_covariance[0] = -1;
     msg_imu.angular_velocity.x = (double)packet->gyro_x * 1e-5;
     msg_imu.angular_velocity.y = (double)packet->gyro_y * 1e-5;
     msg_imu.angular_velocity.z = (double)packet->gyro_z * -1e-5;
@@ -359,7 +359,7 @@ int main(int argc, char **argv)
   int fd;
   sockaddr_in sock;
   if (openSocket(interface, ip_addr, port, &fd, &sock)) {
-    // Set up Publishers
+    // Setup Publishers
     ros::Publisher pub_fix = node.advertise<sensor_msgs::NavSatFix>("gps/fix", 2);
     ros::Publisher pub_vel = node.advertise<geometry_msgs::TwistWithCovarianceStamped>("gps/vel", 2);
     ros::Publisher pub_imu = node.advertise<sensor_msgs::Imu>("imu/data", 2);
@@ -382,7 +382,7 @@ int main(int argc, char **argv)
         }
       }
 
-      // handle callbacks
+      // Handle callbacks
       ros::spinOnce();
     }
 

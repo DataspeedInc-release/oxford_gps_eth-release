@@ -1,4 +1,4 @@
-Etherent interface to OxTS GPS receivers using the NCOM packet structure
+Ethernet interface to OxTS GPS receivers using the NCOM packet structure
 ===============================
 
 ![](RT3v2.jpg)
@@ -26,4 +26,3 @@ rosrun oxford_gps_eth gps_node
 ### FAQ
 I see ```Connected to Oxford GPS at <ip_address>:3000```, but no messages are published.  
 Invalid data is not published. Move faster than 5 m/s to initialize the sensor.
-
