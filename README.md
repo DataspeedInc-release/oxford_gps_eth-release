@@ -1,3 +1,26 @@
+## oxford_gps_eth (melodic) - 0.0.6-0
+
+The packages in the `oxford_gps_eth` repository were released into the `melodic` distro by running `/usr/bin/bloom-release oxford_gps_eth --track melodic --rosdistro melodic` on `Mon, 26 Mar 2018 16:32:38 -0000`
+
+The `oxford_gps_eth` package was released.
+
+Version of package(s) in repository `oxford_gps_eth`:
+
+- upstream repository: https://bitbucket.org/DataspeedInc/oxford_gps_eth
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `0.0.6-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.4`
+- catkin_pkg version: `0.3.8`
+- rosdep version: `0.11.8`
+- rosdistro version: `0.6.2`
+- vcstools version: `0.1.39`
+
+
 ## oxford_gps_eth (kinetic) - 0.0.6-0
 
 The packages in the `oxford_gps_eth` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release oxford_gps_eth --track kinetic --rosdistro kinetic` on `Mon, 26 Mar 2018 16:28:22 -0000`
