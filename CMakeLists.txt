@@ -16,13 +16,17 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(gps_node
-  src/node.cpp
-)
-target_link_libraries(gps_node
-  ${catkin_LIBRARIES}
-)
+add_executable(${PROJECT_NAME}_gps_node src/node.cpp)
+target_link_libraries(${PROJECT_NAME}_gps_node ${catkin_LIBRARIES})
+set_target_properties(${PROJECT_NAME}_gps_node PROPERTIES OUTPUT_NAME gps_node PREFIX "")
 
-install(TARGETS gps_node
+install(TARGETS ${PROJECT_NAME}_gps_node
         RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
+install(DIRECTORY launch
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
+if (CATKIN_ENABLE_TESTING)
+  add_subdirectory(tests)
+endif()

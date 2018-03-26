@@ -71,7 +71,7 @@ static inline bool openSocket(const std::string &interface, const std::string &i
     sock_ptr->sin_family = AF_INET;
     sock_ptr->sin_port = htons(port);
     if (!inet_aton(ip_addr.c_str(), &sock_ptr->sin_addr)) {
-      sock_ptr->sin_addr.s_addr = INADDR_BROADCAST; // Invalid address, use BROADCAST
+      sock_ptr->sin_addr.s_addr = INADDR_ANY; // Invalid address, use ANY
     }
     if (bind(fd, (sockaddr*)sock_ptr, sizeof(sockaddr)) == 0) {
       *fd_ptr = fd;
@@ -81,7 +81,7 @@ static inline bool openSocket(const std::string &interface, const std::string &i
   return false;
 }
 
-static inline int readSocket(int fd, unsigned int timeout, void *data, int size, sockaddr *source_ptr = NULL)
+static inline int readSocket(int fd, unsigned int timeout, void *data, size_t size, sockaddr *source_ptr = NULL)
 {
   if (fd >= 0) {
     fd_set fds;
@@ -105,10 +105,7 @@ static inline int readSocket(int fd, unsigned int timeout, void *data, int size,
   return -1;
 }
 
-static inline double SQUARE(double x)
-{
-  return x * x;
-}
+static inline double SQUARE(double x) { return x * x; }
 
 #ifndef OXFORD_DISPLAY_INFO
 #define OXFORD_DISPLAY_INFO 0
@@ -347,11 +344,11 @@ int main(int argc, char **argv)
   }
 
   if (interface.length() && ip_addr.length()) {
-    ROS_INFO("Preparing to listen on interface %s port %u for packets from ip %s", interface.c_str(), port, ip_addr.c_str());
+    ROS_INFO("Preparing to listen on interface %s port %u and IP %s", interface.c_str(), port, ip_addr.c_str());
   } else if (interface.length()) {
     ROS_INFO("Preparing to listen on interface %s port %u", interface.c_str(), port);
   } else if (ip_addr.length()) {
-    ROS_INFO("Preparing to listen on port %u for packets from ip %s", port, ip_addr.c_str());
+    ROS_INFO("Preparing to listen on %s:%u", ip_addr.c_str(), port);
   } else {
     ROS_INFO("Preparing to listen on port %u", port);
   }
