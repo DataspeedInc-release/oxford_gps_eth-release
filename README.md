@@ -1,3 +1,26 @@
+## oxford_gps_eth (indigo) - 0.0.6-0
+
+The packages in the `oxford_gps_eth` repository were released into the `indigo` distro by running `/usr/bin/bloom-release oxford_gps_eth --track indigo --rosdistro indigo` on `Mon, 26 Mar 2018 16:24:15 -0000`
+
+The `oxford_gps_eth` package was released.
+
+Version of package(s) in repository `oxford_gps_eth`:
+
+- upstream repository: https://bitbucket.org/DataspeedInc/oxford_gps_eth
+- release repository: https://github.com/DataspeedInc-release/oxford_gps_eth-release.git
+- rosdistro version: `0.0.5-0`
+- old version: `0.0.5-0`
+- new version: `0.0.6-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.4`
+- catkin_pkg version: `0.3.8`
+- rosdep version: `0.11.8`
+- rosdistro version: `0.6.2`
+- vcstools version: `0.1.39`
+
+
 ## oxford_gps_eth (indigo) - 0.0.5-0
 
 The packages in the `oxford_gps_eth` repository were released into the `indigo` distro by running `/usr/bin/bloom-release oxford_gps_eth --track indigo --rosdistro indigo` on `Thu, 10 Aug 2017 17:15:22 -0000`
