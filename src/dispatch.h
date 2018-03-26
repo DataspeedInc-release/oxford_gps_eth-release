@@ -89,12 +89,12 @@ typedef union {
 typedef struct {
   uint8_t sync;
   uint16_t time;
-  int32_t accel_x :24; // 1e-5 m/s^2
-  int32_t accel_y :24; // 1e-5 m/s^2
-  int32_t accel_z :24; // 1e-5 m/s^2
-  int32_t gyro_x :24; // 1e-4 rad/s
-  int32_t gyro_y :24; // 1e-4 rad/s
-  int32_t gyro_z :24; // 1e-4 rad/s
+  int32_t accel_x :24; // 1e-4 m/s^2
+  int32_t accel_y :24; // 1e-4 m/s^2
+  int32_t accel_z :24; // 1e-4 m/s^2
+  int32_t gyro_x :24; // 1e-5 rad/s
+  int32_t gyro_y :24; // 1e-5 rad/s
+  int32_t gyro_z :24; // 1e-5 rad/s
   uint8_t nav_status;
   uint8_t chksum1;
   double latitude;
