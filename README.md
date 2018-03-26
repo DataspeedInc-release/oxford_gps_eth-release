@@ -13,8 +13,8 @@ Tested with the RT3000v2 receiver.
 
 ### Parameters
 - `interface` Restrict to single network interface, example: `eth0`. Default `<empty>`
-- `ip_address` Restrict to single ip address. Default `<empty>`
-- `port` UDP listen port. Default `3000`
+- `ip_address` Local IP listen address. Default `<empty>`
+- `port` Local UDP listen port. Default `3000`
 - `frame_id` The frame-ID for gps position and imu. Default `gps`
 - `frame_id_vel` The frame-ID for gps velocity. Default `utm`
 
@@ -22,7 +22,12 @@ Tested with the RT3000v2 receiver.
 ```
 rosrun oxford_gps_eth gps_node
 ```
+OR
+```
+roslaunch oxford_gps_eth gps.launch
+```
 
 ### FAQ
 I see ```Connected to Oxford GPS at <ip_address>:3000```, but no messages are published.  
 Invalid data is not published. Move faster than 5 m/s to initialize the sensor.
+
