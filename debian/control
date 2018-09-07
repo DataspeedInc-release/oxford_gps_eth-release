@@ -1,0 +1,12 @@
+Source: ros-indigo-oxford-gps-eth
+Section: misc
+Priority: extra
+Maintainer: Kevin Hallenbeck <khallenbeck@dataspeedinc.com>
+Build-Depends: debhelper (>= 9.0.0), ros-indigo-catkin, ros-indigo-geometry-msgs, ros-indigo-gps-common, ros-indigo-nav-msgs, ros-indigo-roscpp, ros-indigo-roslaunch, ros-indigo-rostest, ros-indigo-sensor-msgs, ros-indigo-tf
+Homepage: http://wiki.ros.org/oxford_gps_eth
+Standards-Version: 3.9.2
+
+Package: ros-indigo-oxford-gps-eth
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-indigo-geometry-msgs, ros-indigo-gps-common, ros-indigo-nav-msgs, ros-indigo-roscpp, ros-indigo-roslaunch, ros-indigo-sensor-msgs, ros-indigo-tf
+Description: Ethernet interface to OxTS GPS receivers (NCOM packet structure)
