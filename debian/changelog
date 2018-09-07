@@ -1,0 +1,58 @@
+ros-melodic-oxford-gps-eth (1.0.0-0stretch) stretch; urgency=high
+
+  * Use C++11 or newer
+  * Publish a sensor_msgs/TimeReference message with GPS time converted to UTC
+  * Publish a position type string more detailed than the NavSatStatus in the fix message
+  * Added UTM position and heading to odometry output; Odometry twist now in local frame
+  * Contributors: Micho Radovnikovich, Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Fri, 07 Sep 2018 04:00:00 -0000
+
+ros-melodic-oxford-gps-eth (0.0.6-0stretch) stretch; urgency=high
+
+  * Changed default listen address from broadcast to any
+  * Added unit tests and rostests
+  * Added launch file
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 26 Mar 2018 04:00:00 -0000
+
+ros-melodic-oxford-gps-eth (0.0.5-0stretch) stretch; urgency=high
+
+  * Fixed velocity utm east-north-up orientation
+  * Properly handle unknown covariance and fields that are not present
+  * Updated license for year 2017
+  * Updated package.xml format to version 2
+  * Contributors: Kevin Hallenbeck, Micho Radovnikovich
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Thu, 10 Aug 2017 04:00:00 -0000
+
+ros-melodic-oxford-gps-eth (0.0.4-0stretch) stretch; urgency=high
+
+  * Updated license year for 2016
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 11 Apr 2016 04:00:00 -0000
+
+ros-melodic-oxford-gps-eth (0.0.3-0stretch) stretch; urgency=high
+
+  * Added fix for Ubuntu Saucy
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 21 Dec 2015 05:00:00 -0000
+
+ros-melodic-oxford-gps-eth (0.0.2-0stretch) stretch; urgency=high
+
+  * Added fix for Ubuntu Saucy
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 14 Dec 2015 05:00:00 -0000
+
+ros-melodic-oxford-gps-eth (0.0.1-0stretch) stretch; urgency=high
+
+  * Ready for public release
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Thu, 10 Dec 2015 05:00:00 -0000
+
+
