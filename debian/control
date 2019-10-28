@@ -1,0 +1,12 @@
+Source: ros-melodic-oxford-gps-eth
+Section: misc
+Priority: optional
+Maintainer: Kevin Hallenbeck <khallenbeck@dataspeedinc.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, ros-melodic-geometry-msgs, ros-melodic-gps-common, ros-melodic-nav-msgs, ros-melodic-roscpp, ros-melodic-roslaunch, ros-melodic-rostest, ros-melodic-sensor-msgs, ros-melodic-std-msgs, ros-melodic-tf
+Homepage: http://wiki.ros.org/oxford_gps_eth
+Standards-Version: 3.9.2
+
+Package: ros-melodic-oxford-gps-eth
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-melodic-geometry-msgs, ros-melodic-gps-common, ros-melodic-nav-msgs, ros-melodic-roscpp, ros-melodic-roslaunch, ros-melodic-sensor-msgs, ros-melodic-std-msgs, ros-melodic-tf
+Description: Ethernet interface to OxTS GPS receivers (NCOM packet structure)
