@@ -61,7 +61,8 @@
 #define UINT16_MAX (65535)
 #endif
 
-// GPS time to UTC time parameters
+// GPS time to UTC time
+ros::Time g_gps_utc_time;
 #define GPS_LEAP_SECONDS 18         // Offset to account for UTC leap seconds (need to increment when UTC changes)
 #define GPS_EPOCH_OFFSET 315964800  // Offset to account for GPS / UTC epoch difference
 
@@ -186,10 +187,58 @@ static inline double toUtcTime(uint32_t gps_minutes, uint16_t gps_ms)
   return GPS_EPOCH_OFFSET - GPS_LEAP_SECONDS + 60.0 * (double)gps_minutes + 0.001 * (double)gps_ms;
 }
 
+static inline void generateGGAString(double latitude, double longitude, double altitude, const ros::Time& utc_time, std::string& gga_msg)
+{
+  std::stringstream msg;
+  std::stringstream gga_payload;
+
+  int lat_deg = (int)fabs(latitude);
+  float lat_min = 60.0 * fmod(fabs(latitude), 1.0);
+  int lon_deg = (int)fabs(longitude);
+  float lon_min = 60.0 * fmod(fabs(longitude), 1.0);
+
+  double utc_timestamp = utc_time.toSec();
+  uint8_t utc_hours = (uint8_t)(fmod(utc_timestamp / 3600.0, 24.0));
+  uint8_t utc_minutes = (uint8_t)(60.0 * fmod(utc_timestamp / 3600.0, 1.0));
+  uint8_t utc_secs = (uint8_t)(3600.0 * fmod(utc_timestamp / 3600.0, 24.0) - 3600.0 * utc_hours - 60.0 * utc_minutes);
+
+  gga_payload.precision(3);
+  gga_payload << std::setfill('0');
+  gga_payload << "GPGGA," << std::setw(2) << (int)utc_hours << std::setw(2) << (int)utc_minutes << std::setw(2) << (int)utc_secs << ",";
+  gga_payload << std::setw(2) << lat_deg << std::fixed << std::setw(6) << lat_min;
+
+  if (latitude > 0) {
+    gga_payload << ",N,";
+  } else {
+    gga_payload << ",S,";
+  }
+
+  gga_payload << std::setw(3) << lon_deg << std::fixed << std::setw(6) << lon_min;
+  if (longitude > 0) {
+    gga_payload << ",E,";
+  } else {
+    gga_payload << ",W,";
+  }
+
+  gga_payload.precision(1);
+  gga_payload << "1,4,1.5,";
+  gga_payload << std::setfill('0');
+  gga_payload << std::fixed << std::setw(4) << altitude;
+  gga_payload << ",M,0,M,,";
+
+  uint8_t checksum = 0;
+  for (size_t i = 0; i < gga_payload.str().size(); i++) {
+    checksum ^= gga_payload.str()[i];
+  }
+
+  msg << "$" << gga_payload.str() << "*" << std::hex << std::setfill('0') << std::setw(2) << std::uppercase << (int)checksum << "\r\n";
+  gga_msg = msg.str();
+}
+
 static inline void handlePacket(const Packet *packet, ros::Publisher &pub_fix, ros::Publisher &pub_vel,
                                 ros::Publisher &pub_imu, ros::Publisher &pub_odom, ros::Publisher &pub_pos_type,
-                                ros::Publisher &pub_nav_status, ros::Publisher &pub_gps_time_ref, const std::string & frame_id_gps,
-                                const std::string &frame_id_vel, const std::string &frame_id_odom)
+                                ros::Publisher &pub_nav_status, ros::Publisher &pub_gps_time_ref, ros::Publisher& pub_gga,
+                                const std::string & frame_id_gps, const std::string &frame_id_vel, const std::string &frame_id_odom)
 {
   static uint8_t fix_status = sensor_msgs::NavSatStatus::STATUS_FIX;
   static uint8_t position_covariance_type = sensor_msgs::NavSatFix::COVARIANCE_TYPE_UNKNOWN;
@@ -221,7 +270,8 @@ static inline void handlePacket(const Packet *packet, ros::Publisher &pub_fix, r
         sensor_msgs::TimeReference gps_time_ref_msg;
         gps_time_ref_msg.source = "gps";
         gps_time_ref_msg.header.stamp = stamp;
-        gps_time_ref_msg.time_ref = ros::Time(toUtcTime(packet->chan.chan0.gps_minutes, packet->time));
+        g_gps_utc_time = ros::Time(toUtcTime(packet->chan.chan0.gps_minutes, packet->time));
+        gps_time_ref_msg.time_ref = g_gps_utc_time;
         pub_gps_time_ref.publish(gps_time_ref_msg);
       }
 
@@ -360,6 +410,11 @@ static inline void handlePacket(const Packet *packet, ros::Publisher &pub_fix, r
     double utm_y;
     std::string utm_zone;
     gps_common::LLtoUTM(180.0 / M_PI * packet->latitude, 180.0 / M_PI * packet->longitude, utm_y, utm_x, utm_zone);
+
+    // Generate GPGGA message to send to NTRIP casters that require it to maintain a connection
+    std_msgs::String gga_msg;
+    generateGGAString(180.0 / M_PI * packet->latitude, 180.0 / M_PI * packet->longitude, packet->altitude, g_gps_utc_time, gga_msg.data);
+    pub_gga.publish(gga_msg);
 
     // Compute convergence angle and heading in ENU and UTM grid
     double central_meridian = M_PI / 180.0 * getZoneMeridian(utm_zone);
@@ -510,6 +565,7 @@ int main(int argc, char **argv)
     ros::Publisher pub_pos_type = node.advertise<std_msgs::String>("gps/pos_type", 2);
     ros::Publisher pub_nav_status = node.advertise<std_msgs::String>("gps/nav_status", 2);
     ros::Publisher pub_gps_time_ref = node.advertise<sensor_msgs::TimeReference>("gps/time_ref", 2);
+    ros::Publisher pub_gga = node.advertise<std_msgs::String>("gps/gga", 2);
 
     // Variables
     Packet packet;
@@ -524,7 +580,7 @@ int main(int argc, char **argv)
             first = false;
             ROS_INFO("Connected to Oxford GPS at %s:%u", inet_ntoa(((sockaddr_in*)&source)->sin_addr), htons(((sockaddr_in*)&source)->sin_port));
           }
-          handlePacket(&packet, pub_fix, pub_vel, pub_imu, pub_odom, pub_pos_type, pub_nav_status, pub_gps_time_ref, frame_id_gps, frame_id_vel, frame_id_odom);
+          handlePacket(&packet, pub_fix, pub_vel, pub_imu, pub_odom, pub_pos_type, pub_nav_status, pub_gps_time_ref, pub_gga, frame_id_gps, frame_id_vel, frame_id_odom);
         }
       }
 
