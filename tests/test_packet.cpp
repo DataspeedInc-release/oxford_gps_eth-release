@@ -10,6 +10,7 @@
 // Test verifying packet sync byte
 TEST(PACKET, sync)
 {
+  // Test the validatePacket() function
   Packet packet;
   memset(&packet, 0x00, sizeof(packet));
   packet.sync = 0xE7 + 1;
@@ -18,6 +19,9 @@ TEST(PACKET, sync)
     packet.sync++;
   }
   ASSERT_TRUE(validatePacket(&packet));
+
+  // Call the unused dispatchAssertSizes() function to get full test coverage
+  dispatchAssertSizes();
 }
 
 // Test verifying packet checksum
