@@ -36,7 +36,7 @@ tracks:
       -i :{release_inc} --os-name debian --os-not-required
     - git-bloom-generate -y rosrpm --prefix release/:{ros_distro} :{ros_distro} -i
       :{release_inc}
-    devel_branch: default
+    devel_branch: master
     last_version: 1.0.0
     name: oxford_gps_eth
     patches: null
@@ -44,8 +44,8 @@ tracks:
     release_repo_url: null
     release_tag: :{version}
     ros_distro: kinetic
-    vcs_type: hg
-    vcs_uri: https://bitbucket.org/DataspeedInc/oxford_gps_eth
+    vcs_type: git
+    vcs_uri: https://bitbucket.org/DataspeedInc/oxford_gps_eth.git
     version: :{auto}
   melodic:
     actions:
