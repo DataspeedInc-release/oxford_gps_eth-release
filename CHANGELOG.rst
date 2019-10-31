@@ -2,6 +2,12 @@
 Changelog for package oxford_gps_eth
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.1.1 (2019-10-31)
+------------------
+* Install Python script
+* Add missing rospy dependency
+* Contributors: Kevin Hallenbeck, Micho Radovnikovich
+
 1.1.0 (2019-10-28)
 ------------------
 * Add capability to forward RTCM messages from a NTRIP caster to OxTS receivers
