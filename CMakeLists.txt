@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(oxford_gps_eth)
 
 find_package(catkin REQUIRED COMPONENTS
+  rospy
   roscpp
   std_msgs
   geometry_msgs
@@ -40,6 +41,13 @@ install(TARGETS ${PROJECT_NAME}_gps_node
 )
 install(DIRECTORY launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
+catkin_python_setup()
+catkin_install_python(
+  PROGRAMS
+    src/oxford_gps_eth/ntrip_forwarding.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 if (CATKIN_ENABLE_TESTING)
