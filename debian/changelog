@@ -1,0 +1,89 @@
+ros-kinetic-oxford-gps-eth (1.2.0-1xenial) xenial; urgency=high
+
+  * Use setuptools instead of distutils for python
+    http://wiki.ros.org/noetic/Migration#Setuptools_instead_of_Distutils
+  * Increase CMake minimum version to 3.0.2 to avoid warning about CMP0048
+    http://wiki.ros.org/noetic/Migration#Increase_required_CMake_version_to_avoid_author_warning
+  * Add flexibility to change GGA topic and broadcast IP for NTRIP forwarding
+  * Fix local frame covariance calculation
+  * Use cached standard deviation values instead of raw packet values because those values are multiplexed into several packets
+  * Add quality check of standard deviation values
+  * Print debugging info with ROS_DEBUG()
+  * Change BUILD_ASSERT() to std_assert()
+  * Contributors: Kevin Hallenbeck, Micho Radovnikovich
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 06 Jul 2020 04:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (1.1.1-1xenial) xenial; urgency=high
+
+  * Install Python script
+  * Add missing rospy dependency
+  * Contributors: Kevin Hallenbeck, Micho Radovnikovich
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Thu, 31 Oct 2019 04:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (1.1.0-1xenial) xenial; urgency=high
+
+  * Add capability to forward RTCM messages from a NTRIP caster to OxTS receivers
+  * Contributors: Micho Radovnikovich
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 28 Oct 2019 04:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (1.0.0-1xenial) xenial; urgency=high
+
+  * Use C++11 or newer
+  * Publish a sensor_msgs/TimeReference message with GPS time converted to UTC
+  * Publish a position type string more detailed than the NavSatStatus in the fix message
+  * Added UTM position and heading to odometry output; Odometry twist now in local frame
+  * Contributors: Micho Radovnikovich, Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Fri, 07 Sep 2018 04:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (0.0.6-1xenial) xenial; urgency=high
+
+  * Changed default listen address from broadcast to any
+  * Added unit tests and rostests
+  * Added launch file
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 26 Mar 2018 04:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (0.0.5-1xenial) xenial; urgency=high
+
+  * Fixed velocity utm east-north-up orientation
+  * Properly handle unknown covariance and fields that are not present
+  * Updated license for year 2017
+  * Updated package.xml format to version 2
+  * Contributors: Kevin Hallenbeck, Micho Radovnikovich
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Thu, 10 Aug 2017 04:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (0.0.4-1xenial) xenial; urgency=high
+
+  * Updated license year for 2016
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 11 Apr 2016 04:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (0.0.3-1xenial) xenial; urgency=high
+
+  * Added fix for Ubuntu Saucy
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 21 Dec 2015 05:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (0.0.2-1xenial) xenial; urgency=high
+
+  * Added fix for Ubuntu Saucy
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Mon, 14 Dec 2015 05:00:00 -0000
+
+ros-kinetic-oxford-gps-eth (0.0.1-1xenial) xenial; urgency=high
+
+  * Ready for public release
+  * Contributors: Kevin Hallenbeck
+
+ -- Kevin Hallenbeck <khallenbeck@dataspeedinc.com>  Thu, 10 Dec 2015 05:00:00 -0000
+
+
