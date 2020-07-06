@@ -2,6 +2,20 @@
 Changelog for package oxford_gps_eth
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.2.0 (2020-07-06)
+------------------
+* Use setuptools instead of distutils for python
+  http://wiki.ros.org/noetic/Migration#Setuptools_instead_of_Distutils
+* Increase CMake minimum version to 3.0.2 to avoid warning about CMP0048
+  http://wiki.ros.org/noetic/Migration#Increase_required_CMake_version_to_avoid_author_warning
+* Add flexibility to change GGA topic and broadcast IP for NTRIP forwarding
+* Fix local frame covariance calculation
+* Use cached standard deviation values instead of raw packet values because those values are multiplexed into several packets
+* Add quality check of standard deviation values
+* Print debugging info with ROS_DEBUG()
+* Change BUILD_ASSERT() to std_assert()
+* Contributors: Kevin Hallenbeck, Micho Radovnikovich
+
 1.1.1 (2019-10-31)
 ------------------
 * Install Python script
