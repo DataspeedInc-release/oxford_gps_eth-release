@@ -19,9 +19,6 @@ TEST(PACKET, sync)
     packet.sync++;
   }
   ASSERT_TRUE(validatePacket(&packet));
-
-  // Call the unused dispatchAssertSizes() function to get full test coverage
-  dispatchAssertSizes();
 }
 
 // Test verifying packet checksum
