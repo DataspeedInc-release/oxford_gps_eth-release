@@ -1,7 +1,7 @@
 /*********************************************************************
  * Software License Agreement (BSD License)
  *
- *  Copyright (c) 2015-2017, Dataspeed Inc.
+ *  Copyright (c) 2015-2020, Dataspeed Inc.
  *  All rights reserved.
  *
  *  Redistribution and use in source and binary forms, with or without
@@ -160,11 +160,7 @@ static bool validatePacket(const Packet *packet) {
   return false;
 }
 
-#define BUILD_ASSERT(cond) do { (void) sizeof(char [1 - 2*!(cond)]); } while(0)
-static void dispatchAssertSizes() {
-  BUILD_ASSERT(8 == sizeof(Channel));
-  BUILD_ASSERT(72 == sizeof(Packet));
-}
-#undef BUILD_ASSERT
+static_assert(8 == sizeof(Channel), "");
+static_assert(72 == sizeof(Packet), "");
 
 #endif // _DISPATCH_H
