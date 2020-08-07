@@ -36,7 +36,12 @@ import errno
 import time
 import threading
 import select
-import Queue
+import sys
+
+if (sys.version_info > (3, 0)):
+    import queue as Queue
+else:
+    import Queue as Queue
 
 # Testing
 test_mode = False
@@ -75,10 +80,17 @@ class NtripSocketThread (threading.Thread):
             self.ntrip_tcp_sock.settimeout(None)
             return False
 
-        encoded_credentials = base64.b64encode(self.username + ':' + self.password)
-        server_request = 'GET /%s HTTP/1.0\r\nUser-Agent: NTRIP ABC/1.2.3\r\nAccept: */*\r\nConnection: close\r\nAuthorization: Basic %s\r\n\r\n' % (
-            self.mountpoint, encoded_credentials)
-        self.ntrip_tcp_sock.send(server_request)
+        encoded_credentials = base64.b64encode((self.username + ':' + self.password).encode('ascii'))
+        if (sys.version_info > (3, 0)):
+            server_request = ('GET /%s HTTP/1.0' % self.mountpoint).encode('utf-8') + b'\x0D' + b'\x0A' \
+                            + 'User-Agent: NTRIP ABC/1.2.3'.encode('utf-8') + b'\x0D' + b'\x0A' \
+                            + 'Accept: */*'.encode('utf-8') + b'\x0D' + b'\x0A' \
+                            + 'Connection: close'.encode('utf-8') + b'\x0D' + b'\x0A' \
+                            + 'Authorization: Basic '.encode('utf-8') + encoded_credentials + b'\x0D' + b'\x0A' + b'\x0D' + b'\x0A'
+        else:
+            server_request = 'GET /%s HTTP/1.0\r\nUser-Agent: NTRIP ABC/1.2.3\r\nAccept: */*\r\nConnection: close\r\nAuthorization: Basic %s\r\n\r\n' % (self.mountpoint, encoded_credentials)
+
+        self.ntrip_tcp_sock.sendall(server_request)
 
         while True:
             try:
@@ -92,7 +104,7 @@ class NtripSocketThread (threading.Thread):
                     print(e)
                     return False
             else:
-                if 'ICY 200 OK' in response:
+                if ('ICY 200 OK').encode() in response:
                     print('Successfully connected to NTRIP caster')
                     return True
                 else:
@@ -122,13 +134,16 @@ class NtripSocketThread (threading.Thread):
             if len(ready_to_read) > 0:
                 rtcm_msg = self.ntrip_tcp_sock.recv(100000)
                 if len(rtcm_msg) > 0:
-                    if ord(rtcm_msg[0]) == 0xD3:
-                        rtcm_msg_len = 256 * ord(rtcm_msg[1]) + ord(rtcm_msg[2])
-                        rtcm_msg_no = (256 * ord(rtcm_msg[3]) + ord(rtcm_msg[4])) / 16
-                        print('Received RTCM message %d with length %d' % (rtcm_msg_no, rtcm_msg_len))
+                    if (sys.version_info > (3, 0)):
+                        if rtcm_msg[0] == 211:
+                            rtcm_msg_len = 256 * rtcm_msg[1] + rtcm_msg[2]
+                            rtcm_msg_no = (256 * rtcm_msg[3] + rtcm_msg[4]) / 16
+                            print('Received RTCM message %d with length %d' % (rtcm_msg_no, rtcm_msg_len))
                     else:
-                        # print('Received ASCII message from server: %s' % str(rtcm_msg))
-                        print('%d' % ord(rtcm_msg[0]))
+                        if ord(rtcm_msg[0]) == 211:
+                            rtcm_msg_len = 256 * ord(rtcm_msg[1]) + ord(rtcm_msg[2])
+                            rtcm_msg_no = (256 * ord(rtcm_msg[3]) + ord(rtcm_msg[4])) / 16
+                            print('Received RTCM message %d with length %d' % (rtcm_msg_no, rtcm_msg_len))
 
                     rtcm_queue.put(rtcm_msg)
                     self.no_rtcm_data_count = 0
@@ -139,7 +154,7 @@ class NtripSocketThread (threading.Thread):
                 try:
                     gga_msg = gga_queue.get_nowait()
                     print('Sending new GGA message to NTRIP caster %s' % gga_msg)
-                    self.ntrip_tcp_sock.send(gga_msg)
+                    self.ntrip_tcp_sock.send(gga_msg.encode('utf-8'))
                     self.sent_gga = True
                 except Queue.Empty:
                     pass
