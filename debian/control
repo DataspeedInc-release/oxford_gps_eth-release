@@ -1,0 +1,12 @@
+Source: ros-noetic-oxford-gps-eth
+Section: misc
+Priority: optional
+Maintainer: Kevin Hallenbeck <khallenbeck@dataspeedinc.com>
+Build-Depends: debhelper (>= 9.0.0), python3-setuptools, ros-noetic-catkin, ros-noetic-geometry-msgs, ros-noetic-gps-common, ros-noetic-nav-msgs, ros-noetic-roscpp, ros-noetic-roslaunch, ros-noetic-rospy, ros-noetic-rostest, ros-noetic-sensor-msgs, ros-noetic-std-msgs, ros-noetic-tf
+Homepage: http://wiki.ros.org/oxford_gps_eth
+Standards-Version: 3.9.2
+
+Package: ros-noetic-oxford-gps-eth
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ros-noetic-geometry-msgs, ros-noetic-gps-common, ros-noetic-nav-msgs, ros-noetic-roscpp, ros-noetic-roslaunch, ros-noetic-rospy, ros-noetic-sensor-msgs, ros-noetic-std-msgs, ros-noetic-tf
+Description: Ethernet interface to OxTS GPS receivers (NCOM packet structure)
