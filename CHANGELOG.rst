@@ -2,6 +2,11 @@
 Changelog for package oxford_gps_eth
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.2.1 (2020-08-07)
+------------------
+* Changes to make ntrip_forwarding.py support both Python 2 and Python 3
+* Contributors: Micho Radovnikovich
+
 1.2.0 (2020-07-06)
 ------------------
 * Use setuptools instead of distutils for python
